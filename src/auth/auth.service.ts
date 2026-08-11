@@ -6,25 +6,28 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class AuthService {
   constructor(private readonly prisma: PrismaService) {}
-  create( registerAuthDto: registerAuthDto) {
-    try{
-      const {email, phone, password} = registerAuthDto
-      const user = this.prisma.user.create({
+
+  async create(registerAuthDto: registerAuthDto) {
+    try {
+      const { email, phone, password } = registerAuthDto;
+      const user = await this.prisma.user.create({
         data: {
           email,
           phone,
-          password
-        }
-      })
-    }catch (error){
-      return{
+          password,
+          role: 'USER',
+        },
+      });
+
+      return {
+        success: true,
+        data: user,
+      };
+    } catch (error) {
+      return {
         success: false,
-        message:"error creating user",
-      
-      }
+        message: 'error creating user',
+      };
     }
-
-
   }
-
 }
