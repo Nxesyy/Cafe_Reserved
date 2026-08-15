@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { registerAuthDto } from './dto/register-auth.dto';
 import { LoginAuthDto } from './dto/Login-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt'
 import { Role } from '@prisma/client';
 import { access } from 'fs';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -72,8 +73,8 @@ export class AuthService {
     });
 
     return {
-      success: true,
-      data: admin,
+      success: false,
+      message:"error while creating"+ error,
     };
   }
 

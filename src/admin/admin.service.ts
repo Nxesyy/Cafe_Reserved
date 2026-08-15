@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAdminDto } from './dto/create-admin.dto';
 import { UpdateAdminDto } from './dto/update-admin.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -14,5 +14,23 @@ export class AdminService {
       select: {id: true, name:true, email:true, role:true, createdAt:true}
     })
 
+    if(!admin){
+      throw new NotFoundException('Admin not found')
+    }
+
+    return {
+      success: true,
+      message: 'Admin found successfully',
+      data: admin
+    }
+
   }
+
+  async findOne(id:number){
+    const admin = this.prisma.admin.findUnique({
+      where: {id},
+      select: {id: true, name:true, email:true, role:true, createdAt:true}
+    })
+  }
+  
 }
