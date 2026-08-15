@@ -73,8 +73,8 @@ export class AuthService {
     });
 
     return {
-      success: false,
-      message:"error while creating"+ error,
+      success: true,
+      data: admin,
     };
   }
 
