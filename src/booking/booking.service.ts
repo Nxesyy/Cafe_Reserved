@@ -50,7 +50,7 @@ export class BookingService {
     });
 
     if (conflict) {
-      throw new BadRequestException('Table is not available for the selected time');
+      throw new BadRequestException('Meja pada tanggal tersebut sudah di booking');
     }
 
     const booking = await this.prisma.booking.create({
