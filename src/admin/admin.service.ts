@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class AdminService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async findAll() {
     const admins = await this.prisma.admin.findMany({
@@ -59,6 +59,45 @@ export class AdminService {
     return {
       success: true,
       message: 'Admin deleted successfully',
+    };
+  }
+
+  async findAllBooking() {
+    const bookings = await this.prisma.booking.findMany({
+      select: {
+        id: true,
+        bookingDate: true,
+        status: true,
+        startTime: true,
+        endTime: true,
+        guestcount: true,
+        createdAt: true,
+        updatedAt: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
+        table: {
+          select: {
+            id: true,
+            number: true,
+            capacity: true,
+            status: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return {
+      success: true,
+      data: bookings,
     };
   }
 }

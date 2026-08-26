@@ -13,6 +13,10 @@ import { RolesGuard } from '../common/roles-guard';
 import { Roles } from '../common/roles.decorator';
 import { BookingStatus } from '@prisma/client';
 
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiTags('Admin Bookings')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('ADMIN')
 @Controller('admin/bookings')

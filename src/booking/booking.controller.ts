@@ -15,6 +15,10 @@ import { JwtAuthGuard } from '../common/jwt.auth.guard';
 import { RolesGuard } from '../common/roles-guard';
 import { Roles } from '../common/roles.decorator';
 
+import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
+
+@ApiTags('Bookings')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('CUSTOMER')
 @Controller('bookings')

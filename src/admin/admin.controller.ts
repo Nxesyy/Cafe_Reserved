@@ -5,6 +5,10 @@ import { Roles } from 'src/common/roles.decorator';
 import { JwtAuthGuard } from 'src/common/jwt.auth.guard';
 import { RolesGuard } from 'src/common/roles-guard';
 
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiTags('Admin')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('ADMIN')
 @Controller('admin')
@@ -14,6 +18,11 @@ export class AdminController {
   @Get()
   findAll() {
     return this.adminService.findAll();
+  }
+
+  @Get('bookings')
+  findAllBooking() {
+    return this.adminService.findAllBooking();
   }
 
   @Get(':id')

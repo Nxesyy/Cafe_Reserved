@@ -3,6 +3,10 @@ import { CustomerService } from './customer.service';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { JwtAuthGuard } from 'src/common/jwt.auth.guard';
 
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiTags('Customers')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('customer')
 export class CustomerController {

@@ -6,6 +6,10 @@ import { JwtAuthGuard } from '../common/jwt.auth.guard';
 import { RolesGuard } from '../common/roles-guard';
 import { Roles } from '../common/roles.decorator';
 
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+
+@ApiTags('Tables')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('tables')
 export class TableController {
